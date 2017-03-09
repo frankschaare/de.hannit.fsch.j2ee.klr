@@ -30,7 +30,6 @@ private MitarbeiterDAO mitarbeiterDAO;
 @Inject
 private JMSBroker broker;
 
-
 	@PostConstruct
 	private void init()
 	{
@@ -64,9 +63,7 @@ private JMSBroker broker;
 		mitarbeiterDAO.create(m);
 
 		broker.send(m);
-		}
 		
-	
+		}
 	}
-
 }

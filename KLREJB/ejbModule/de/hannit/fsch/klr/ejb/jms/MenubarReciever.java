@@ -7,10 +7,10 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 
-import de.hannit.fsch.klr.ejb.beans.JMSBroker;
+import de.hannit.fsch.klr.ejb.interfaces.Topics;
 import de.hannit.fsch.klr.persistence.entities.Mitarbeiter;
 
-@MessageDriven(activationConfig={@ActivationConfigProperty(propertyName="destination", propertyValue=JMSBroker.TOPIC_MITARBEITER)})
+@MessageDriven(activationConfig={@ActivationConfigProperty(propertyName="destination", propertyValue=Topics.TOPIC_MITARBEITER)})
 public class MenubarReciever implements MessageListener 
 {
 

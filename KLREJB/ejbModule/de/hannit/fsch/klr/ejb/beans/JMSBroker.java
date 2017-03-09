@@ -9,6 +9,7 @@ import javax.jms.JMSDestinationDefinition;
 import javax.jms.JMSDestinationDefinitions;
 import javax.jms.Topic;
 
+import de.hannit.fsch.klr.ejb.interfaces.Topics;
 import de.hannit.fsch.klr.persistence.entities.Mitarbeiter;
 
 /**
@@ -21,15 +22,13 @@ import de.hannit.fsch.klr.persistence.entities.Mitarbeiter;
 @Singleton
 @Startup
 @JMSDestinationDefinitions(
-		{@JMSDestinationDefinition(name=JMSBroker.TOPIC_MITARBEITER, interfaceName="javax.jms.Topic")})
+		{@JMSDestinationDefinition(name=Topics.TOPIC_MITARBEITER, interfaceName="javax.jms.Topic")})
 public class JMSBroker 
 {
-public static final String TOPIC_MITARBEITER = "java:global/jms/selectedMitarbeiterTopic";	
-
 @Inject
 private JMSContext jmsContext;
 
-@Resource(mappedName=JMSBroker.TOPIC_MITARBEITER)
+@Resource(mappedName=Topics.TOPIC_MITARBEITER)
 private Topic topic;
 
 	public void send(Mitarbeiter m)
