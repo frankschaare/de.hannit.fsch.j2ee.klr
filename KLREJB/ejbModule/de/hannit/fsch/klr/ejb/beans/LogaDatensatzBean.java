@@ -1,6 +1,8 @@
 package de.hannit.fsch.klr.ejb.beans;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -12,7 +14,6 @@ import javax.persistence.TemporalType;
 import de.hannit.fsch.klr.ejb.interfaces.LogaDatensatzDAO;
 import de.hannit.fsch.klr.persistence.entities.LogaDatensatz;
 import de.hannit.fsch.klr.persistence.queries.SQL;
-import de.hannit.fsch.util.DateUtility;
 
 @Stateless
 @Remote(LogaDatensatzDAO.class)
@@ -59,7 +60,7 @@ private EntityManager em;
 	@Override
 	public List<LogaDatensatz> findByDate(LocalDate berichtsMonat) 
 	{
-	return em.createNamedQuery(SQL.NAMEDQUERY_LOGA_FINDBYDATE, LogaDatensatz.class).setParameter("berichtsMonat", DateUtility.asDate(berichtsMonat), TemporalType.DATE).getResultList();
+	return em.createNamedQuery(SQL.NAMEDQUERY_LOGA_FINDBYDATE, LogaDatensatz.class).setParameter("berichtsMonat", Date.from(berichtsMonat.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()), TemporalType.DATE).getResultList();
 	}
 
 

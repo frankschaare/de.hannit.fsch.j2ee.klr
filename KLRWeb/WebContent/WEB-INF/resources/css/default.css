@@ -1,0 +1,241 @@
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif !important;
+	font-size: 12px;
+	font-weight: normal;
+	color: #000000;
+	background-color: #ffffff;
+	margin: 0px;
+	padding: 0px;
+}
+
+.infoGrid {
+	width: 55%; 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-weight: bold; 
+	padding: 4px 2px;
+	border-collapse: separate !important;
+}
+
+.rowStyleNotNew {
+    border-color: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    color: #a6a6a6 !important;
+}
+
+.rowStyleGutschrift {
+    border-color: #e6ffe6 !important;
+    background-color: #e6ffe6 !important;
+    background-image: none !important;
+    color: #000000 !important;
+}
+
+.rowStyleEntname {
+	border-color: #ffe6e6 !important;
+    background-color: #ffe6e6 !important;
+    background-image: none !important;
+    color: #000000 !important;
+}
+
+.rowStyleOrange {
+    background-color: #fca752 !important;
+    background-image: none !important;
+    color: #000000 !important;
+}
+
+.rowStyleRed {
+    background-color: #ff3300 !important;
+    background-image: none !important;
+    color: #000000 !important;
+}
+
+.summeOK {
+	color: rgb(0, 102, 0);
+}
+
+.summeError {
+	color: rgb(153, 0, 0);
+}
+
+.ui-tabs .ui-tabs-nav li a {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-weight: normal !important;  
+	padding: 3px !important;
+ }
+ 
+.ui-panelgrid .ui-panelgrid-cell {
+    border: none !important;
+} 
+
+.navTree {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	width: 98% !important;
+	height: 100% !important; 
+	min-height: 380px;
+	border: none !important;
+	margin-top: 0px;
+	}
+	
+.ui-tree .ui-tree-container {
+    padding: 0px;
+    padding-top: 5px;
+    width: 346px;
+}	
+
+.menuDatei
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/tableImport16px.png']}) !important;
+}
+
+.menuCSV
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/CSVGreen.png']}) !important;
+}
+
+.menuCSVCreate
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/Logging16x16.png']}) !important;
+}
+
+.menuCSVAddLines
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/addLines16x16.png']}) !important;
+}
+
+.buttonResetDefault
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/delete_16.png']}) !important;
+}
+
+.buttonDBUpdate
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/dataBaseUpdate16px.png']}) !important;
+}
+
+.menuDateiLogaImport
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/MoneyAdd16px.png']}) !important;
+}
+
+.menuAZVImport
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/csv.png']}) !important;
+}
+
+.menuAZVWebservice
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/dataBaseWebservice16x.png']}) !important;
+}
+
+.menuDBInsert
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/dataBaseCommit16px.png']}) !important;
+}
+
+.menuUser
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/User16px.png']}) !important;
+}	
+
+.menuUserAdd
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/UserAdd16px.png']}) !important;
+}
+
+.menuUserEdit
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/UserEdit16px.png']}) !important;
+}
+
+.menuUserDisabled
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/UserRemove16px.png']}) !important;
+}
+
+.menuCSVReload
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/reload.png']}) !important;
+}
+
+.benutzerErfassenUnit
+{
+	width: 30% !important;
+}
+
+.benutzerErfassenLabel
+{
+	padding-left: 10px !important;
+}
+
+.benutzerErfassenMessage
+{
+	border: 1px solid green !important; 
+
+	}
+
+.treeNodeUserOK
+{
+   background-image:url(#{resource['/images/User16px.png']}) !important;
+}	
+.treeNodeAltersteilzeit
+{
+   background-image:url(#{resource['/images/UserATZ16x16.png']}) !important;
+}
+.treeNodeAzubi
+{
+   background-image:url(#{resource['/images/UserAZUBI16x16.png']}) !important;
+}
+.treeNodeImportiert
+{
+   background-image:url(#{resource['/images/UserYellow16px.png']}) !important;
+}
+.treeNodeError
+{
+   background-image:url(#{resource['/images/UserRemove16px.png']}) !important;
+}
+.treeNodeDisabled
+{
+   background-image:url(#{resource['/images/UserDisabled16px.png']}) !important;
+}
+.treeNodeAZV
+{
+   background-image:url(#{resource['/images/clock16px.png']}) !important;
+}
+
+.ui-layout-north {
+	z-index:20 !important;
+    overflow:visible !important;
+    padding: 0 !important;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow:visible !important;
+}
+
+.ui-tabs .ui-tabs-panel {
+    padding: 0 !important;
+}
+
+.ui-tree {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	width: 99%;
+    border: none;
+    font-size: 12px !important;
+    color: black !important;
+}
