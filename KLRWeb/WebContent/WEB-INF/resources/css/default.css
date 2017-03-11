@@ -149,6 +149,12 @@ body {
    	background-image:url(#{resource['/images/User16px.png']}) !important;
 }	
 
+.menuUserGroup
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/Users16x16.png']}) !important;
+}	
+
 .menuUserAdd
 {
 	padding-right: 3px;

@@ -59,7 +59,4 @@ private boolean disabled = false;
 
 	@Override
 	public Mitarbeiter getMitarbeiter() {return null;}
-	
-	
-
 }

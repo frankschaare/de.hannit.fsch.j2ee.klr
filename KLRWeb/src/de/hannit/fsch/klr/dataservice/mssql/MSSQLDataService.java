@@ -23,6 +23,7 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.faces.application.ProjectStage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -32,6 +33,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import de.hannit.fsch.klr.dataservice.DataService;
+import de.hannit.fsch.klr.ejb.interfaces.MitarbeiterDAO;
 import de.hannit.fsch.klr.model.Datumsformate;
 import de.hannit.fsch.klr.model.azv.AZVDaten;
 import de.hannit.fsch.klr.model.azv.AZVDatensatz;
@@ -96,7 +98,7 @@ private Organisation hannit = null;
 		try 
 		{
 		ic = new InitialContext();
-		ds = (DataSource) ic.lookup("java:jboss/datsources/KLR");
+		ds = (DataSource) ic.lookup("java:jboss/datsources/ALT");
 		con = (con != null ) ? con : ds.getConnection();
 			
 			if (con != null) 
@@ -210,8 +212,6 @@ private Organisation hannit = null;
 		
 	return mMap;
 	}
-
-
 
 	@Override
 	public ArrayList<Mitarbeiter> getMitarbeiter() 
@@ -1023,11 +1023,19 @@ private Organisation hannit = null;
 		    while (subSelect.next()) 
 		    {
 		    anteil = new Arbeitszeitanteil();	  
-		    anteil.setITeam(subSelect.getInt(2));
-		    anteil.setBerichtsMonat(subSelect.getDate(3));
-		    anteil.setKostenstelle(subSelect.getString(4));
-		    anteil.setKostentraeger(subSelect.getString(5));
-		    anteil.setProzentanteil(subSelect.getInt(6));
+		    anteil.setPersonalNummer(subSelect.getInt(2));
+		    anteil.setITeam(subSelect.getInt(3));
+		    anteil.setBerichtsMonat(subSelect.getDate(4));
+		    	
+		    	if (subSelect.getString(5) == null) 
+		    	{
+	    		anteil.setKostentraeger(subSelect.getString(6));
+				} 
+		    	else 
+		    	{
+	    		anteil.setKostenstelle(subSelect.getString(5));
+				}
+		    anteil.setProzentanteil(subSelect.getInt(7));
 		    
 		    arbeitszeitAnteile.add(anteil);
 		    }

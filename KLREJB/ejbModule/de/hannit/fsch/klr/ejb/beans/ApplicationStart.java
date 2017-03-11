@@ -35,7 +35,7 @@ private JMSBroker broker;
 	{
 		if (mitarbeiterDAO.getAllMitarbeiter().size() == 0) 
 		{
-		Mitarbeiter m = new Mitarbeiter();
+/*		Mitarbeiter m = new Mitarbeiter();
 		m.setVorname("Horst");
 		m.setNachname("Brack");
 		m.setPersonalNR(123456);
@@ -62,7 +62,7 @@ private JMSBroker broker;
 		
 		mitarbeiterDAO.create(m);
 
-		broker.send(m);
+		broker.send(m);*/
 		
 		}
 	}

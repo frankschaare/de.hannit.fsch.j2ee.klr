@@ -9,7 +9,7 @@
 	
 <h:form id="menuForm">  
     <p:menubar id="mainMenu">
-        <p:submenu id="subMenuDatei" label="#{ui['submenuFile']}" icon="menuDatei">
+        <p:submenu id="subMenuDatei" label="Datei" icon="menuDatei">
             <p:submenu label="New" icon="ui-icon-contact">
                 <p:menuitem value="Project" url="#" />
                 <p:menuitem value="Other" url="#" />
@@ -20,7 +20,8 @@
         </p:submenu>
  
         <p:submenu id="subMenuBenutzer" label="  Benutzer" icon="menuUser">
-            <p:menuitem id="menuitemBenutzerErfassen" value="erfassen" url="#" icon="menuUserAdd" />
+            <p:menuitem id="menuitemBenutzerListe" value="Liste" disabled="false" action="/mitarbeiter/liste.xhtml?faces-redirect=true" icon="menuUserGroup" />
+            <p:menuitem id="menuitemBenutzerErfassen" value="erfassen" disabled="#{menuBar.createMitarbeiterCommand.disabled}" url="#" icon="menuUserAdd" />
             <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
         </p:submenu>
  

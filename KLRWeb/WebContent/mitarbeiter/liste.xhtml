@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:view contentType="text/html">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Benutzer erfassen</title>
+	<f:facet name="last">
+		<h:outputStylesheet library="css" name="default.css" target="head" />
+  	</f:facet>
+</h:head>
+<h:body>
+
+	<p:layout id="benutzerErfassenLayout" fullPage="true">
+ 	    <p:layoutUnit position="north" size="45" resizable="true" styleClass="menu">
+	        <ui:include src="/WEB-INF/navigation/menu.xhtml" />
+	    </p:layoutUnit>
+		    <p:layoutUnit id="benutzerErfassenUnit" position="west" styleClass="benutzerErfassenUnit" resizable="true" >
+	 		<h:form id="formEdit">
+				<p:panelGrid id="benutzerErfassenGrid" style="width: 100%; border-collapse: separate;">
+				    <f:facet name="header">
+				        <p:row>
+				            <p:column colspan="7"><p:outputLabel id="gridHeaderText" value="#{mitarbeiterListe.gridHeaderText}"/></p:column>
+				        </p:row>				    
+				    </f:facet>
+				 	<p:row>
+				 		<p:column>
+						    <h:outputText value="Personalnummer:" styleClass="benutzerErfassenLabel"/>
+				 		</p:column>
+				 		<p:column>
+						    <p:inputText id="inputPersonalnummer" value="#{mitarbeiterListe.selected.mitarbeiter.personalNR}" maxlength="6" disabled="#{mitarbeiterListe.inputPersonalnummerDisabled}" required="true" requiredMessage="Personalnummer darf nicht leer sein !">
+						    </p:inputText>
+				 		</p:column>
+				 		<p:column style="width: 40%; padding: 30px 0px;">
+						 	<p:message id="msgInputPersonalnummer" for="inputPersonalnummer" />
+				 		</p:column>
+				 	</p:row>
+		 		
+				 	<p:row>
+				 		<p:column>
+						    <h:outputText value="NetzwerkID:" styleClass="benutzerErfassenLabel"/>	
+				 		</p:column>
+				 		<p:column>
+						    <p:inputText id="inputNetzwerkID" value="#{mitarbeiterListe.selected.mitarbeiter.username}" required="false"/>				 		
+				 		</p:column>
+				 		<p:column style="width: 40%; padding: 30px 0px;">
+						 	<p:message for="inputNetzwerkID" />				 		
+				 		</p:column>
+				 	</p:row>
+				 	
+				 	<p:row>
+				 		<p:column>
+						    <h:outputText value="Nachname:" styleClass="benutzerErfassenLabel"/>				 		
+				 		</p:column>
+				 		<p:column>
+						    <p:inputText id="inputNachname" value="#{mitarbeiterListe.selected.mitarbeiter.nachname}" required="true" requiredMessage="Nachname darf nicht leer sein !">
+						    </p:inputText>				 		
+				 		</p:column>
+				 		<p:column style="width: 40%; padding: 30px 0px;">
+						 	<p:message id="msginputNachname" for="inputNachname" />		 		
+				 		</p:column>
+				 	</p:row>
+				 	
+				 	<p:row>
+				 		<p:column>
+						    <h:outputText value="Vorname:" styleClass="benutzerErfassenLabel"/>				 		
+				 		</p:column>
+				 		<p:column>
+						    <p:inputText id="inputVorname" value="#{mitarbeiterListe.selected.mitarbeiter.vorname}" required="false"/>				 		
+				 		</p:column>
+				 		<p:column style="width: 40%; padding: 30px 0px;">
+						 	<p:message for="inputVorname" />				 		
+				 		</p:column>
+				 	</p:row>
+				 	
+				 	<p:row>
+				 		<p:column>
+						 	<p:commandButton id="btnBenutzerReset" value="zurücksetzen" actionListener="#{mitarbeiterListe.reset}" process="@this" update="@(:input)" disabled="#{mitarbeiterListe.btnBenutzerResetDisabled}" icon="menuUserDisabled"/>				 					 		
+				 		</p:column>
+				 		<p:column style="padding-left: 30px;">
+				 			<p:commandButton id="btnBenutzerAktualisieren" value="aktualisieren" actionListener="#{mitarbeiterListe.update}" process="formEdit" update="formEdit dataTableMitarbeiter msgs" disabled="#{mitarbeiterListe.btnBenutzerAktualisierenDisabled}" icon="menuUserEdit"/>
+				 		</p:column>
+				 		<p:column style="width: 40%; padding: 30px 0px;">
+						 	<p:commandButton id="btnBenutzerSpeichern" value="speichern" actionListener="#{mitarbeiterListe.save()}" process="formEdit" update="formEdit dataTableMitarbeiter msgs" disabled="#{mitarbeiterListe.btnBenutzerSpeichernDisabled}" icon="menuUserAdd"/>		 		
+				 		</p:column>
+				 	</p:row>
+				 	
+				</p:panelGrid>
+		 	</h:form>
+	
+		    </p:layoutUnit>
+	    <p:layoutUnit id="dbMitarbeiterUnit" position="center" size="800">
+	    	<p:dataTable id="dataTableMitarbeiter" var="mbean" value="#{mitarbeiterListe.mitarbeiterModel}" selectionMode="single" selection="#{mitarbeiterListe.selected}" rowKey="#{mbean.mitarbeiter.personalNR}">
+			    <f:facet name="header">
+			    	<h:form id="formMigrate">
+			    		<p:commandLink actionListener="#{mitarbeiterListe.migrate()}">
+							<h:outputText value="Aktuell in der Datenbank vorhandene Mitarbeiter" />
+			    		</p:commandLink>
+			    	</h:form>
+    			</f:facet>
+    			<p:ajax event="rowSelect" listener="#{mitarbeiterListe.onRowSelect}" update="formEdit msgs" />
+				    <p:column headerText="Personalnummer" sortBy="#{mbean.mitarbeiter.personalNR}">
+				        <h:outputText value="#{mbean.mitarbeiter.personalNR}" />
+				    </p:column>
+				    <p:column headerText="NetzwerkID" sortBy="#{mbean.mitarbeiter.username}">
+				        <h:outputText value="#{mbean.mitarbeiter.username}" />
+				    </p:column>
+				 
+				    <p:column headerText="Nachname" sortBy="#{mbean.mitarbeiter.nachname}">
+				        <h:outputText value="#{mbean.mitarbeiter.nachname}" />
+				    </p:column>
+				 
+				    <p:column headerText="Vorname">
+				        <h:outputText value="#{mbean.mitarbeiter.vorname}" />
+				    </p:column>
+				</p:dataTable>	
+				<h:form id="contextForm">
+					<p:contextMenu for="dataTableMitarbeiter">
+	        			<p:menuitem value="löschen" process="contextForm" update="formEdit dataTableMitarbeiter msgs" icon="menuUserDisabled" actionListener="#{mitarbeiterListe.delete}"/>
+	    			</p:contextMenu>	    
+				</h:form>				
+	    </p:layoutUnit>
+ 
+	    <p:layoutUnit position="south" size="80" resizable="true">
+	        <p:messages id="msgs" showDetail="true" globalOnly="true"/>
+	    </p:layoutUnit>
+	</p:layout>
+		
+</h:body>
+</f:view>
+</html>

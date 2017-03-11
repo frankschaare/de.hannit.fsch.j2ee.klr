@@ -14,6 +14,7 @@ import de.hannit.fsch.klr.model.csv.CSV01Datei;
 import de.hannit.fsch.klr.model.mitarbeiter.Mitarbeiter;
 import de.hannit.fsch.klr.web.commands.CreateCSV01Command;
 import de.hannit.fsch.klr.web.commands.CreateMitarbeiterCommand;
+import de.hannit.fsch.klr.web.commands.MessageDrivenCommand;
 
 /*
  * Controller für die MenuBar
@@ -25,11 +26,10 @@ public class MenuBar implements Serializable, ICommand
 private static final long serialVersionUID = 6140206232199776516L;
 private CreateCSV01Command createCSV01Command = new CreateCSV01Command();
 private CreateMitarbeiterCommand createMitarbeiterCommand = new CreateMitarbeiterCommand();
+private MessageDrivenCommand test = new MessageDrivenCommand();
 private String downloadPath = null;
 private CSV01Datei csv01 = null;
 private MonatsSummen monatsSummen = null;
-
-
 
 	public MenuBar() 
 	{
@@ -96,7 +96,5 @@ private MonatsSummen monatsSummen = null;
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
 
 }

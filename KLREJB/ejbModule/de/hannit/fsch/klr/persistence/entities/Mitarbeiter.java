@@ -33,7 +33,6 @@ private int personalNR;
  */
 @Version
 private Timestamp lastChanged;
-private Teams team;
 private String vorname;
 @NotNull
 @Size(min=1)
@@ -54,16 +53,6 @@ private List<Arbeitszeitanteil> arbeitszeitAnteile = new ArrayList<Arbeitszeitan
 
 	public void setPersonalNR(int personalNR) {
 		this.personalNR = personalNR;
-	}
-
-	public Teams getTeam() 
-	{
-	return team;
-	}
-
-	public void setTeam(Teams team) 
-	{
-	this.team = team;
 	}
 
 	public String getVorname() {
