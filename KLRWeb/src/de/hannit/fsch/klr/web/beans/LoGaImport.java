@@ -62,7 +62,6 @@ private Mitarbeiter toChange = null;
 	fc = FacesContext.getCurrentInstance();
 	dataService = dataService != null ? dataService : fc.getApplication().evaluateExpressionGet(fc, "#{dataService}", MSSQLDataService.class);
 	menuBar = menuBar != null ? menuBar : fc.getApplication().evaluateExpressionGet(fc, "#{menuBar}", MenuBar.class);
-	addMitarbeiterChangedListener(menuBar.getCreateMitarbeiterCommand());
 	}
 	
 	public UploadedFile getFile() 

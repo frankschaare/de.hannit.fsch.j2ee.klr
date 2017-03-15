@@ -21,7 +21,7 @@
  
         <p:submenu id="subMenuBenutzer" label="  Benutzer" icon="menuUser">
             <p:menuitem id="menuitemBenutzerListe" value="Liste" disabled="false" action="/mitarbeiter/liste.xhtml?faces-redirect=true" icon="menuUserGroup" />
-            <p:menuitem id="menuitemBenutzerErfassen" value="erfassen" disabled="#{menuBar.createMitarbeiterCommand.disabled}" url="#" icon="menuUserAdd" />
+            <p:menuitem id="menuitemBenutzerErfassen" value="bearbeiten" disabled="#{menuBar.createMitarbeiterCommand.disabled}" action="/mitarbeiter/details.xhtml?faces-redirect=true" icon="menuUserAdd" />
             <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
         </p:submenu>
  
@@ -43,7 +43,7 @@
             <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
         </f:facet>
     </p:menubar>
-    <p:tooltip id="menuitemBenutzerErfassenToolTip" for="menuitemBenutzerErfassen" value="menuitemBenutzerErfassenToolTip" position="right"/>
+    <p:tooltip id="menuitemBenutzerErfassenToolTip" for="menuitemBenutzerErfassen" value="#{menuBar.createMitarbeiterCommand.toolTipText}" position="right"/>
     <p:tooltip id="cmd01Entlastung0400ToolTip" for="menuitem01Entlastung0400" value="cmd01Entlastung0400ToolTip" position="right"/>
     <p:tooltip id="cmd02Entlastung0400ToolTip" for="menuitem02Entlastung0400" value="Erstellt die Datei 02_Entlastung 0400 auf andere KTR" position="right"/>
     <p:tooltip id="cmd03Entlastung0400ToolTip" for="menuitem03Entlastung0400" value="Erstellt die Datei 03_Entlastung 0400 auf andere KTR" position="right"/>

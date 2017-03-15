@@ -18,7 +18,6 @@ public class MessageDrivenCommand implements MessageListener
 	@Override
 	public void onMessage(Message message) 
 	{
-	System.out.println("MessageDrivenCommand hat Nachricht erhalten");
 	}
 
 }

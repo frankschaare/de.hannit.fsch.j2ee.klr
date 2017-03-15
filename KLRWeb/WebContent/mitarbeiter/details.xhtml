@@ -26,7 +26,7 @@
 				<p:panelGrid id="benutzerErfassenGrid" style="width: 100%; border-collapse: separate;">
 				    <f:facet name="header">
 				        <p:row>
-				            <p:column colspan="7"><p:outputLabel id="gridHeaderText" value="#{mitarbeiterListe.gridHeaderText}"/></p:column>
+				            <p:column colspan="7"><p:outputLabel id="gridHeaderText" value="#{mitarbeiterDetails.gridHeaderText}"/></p:column>
 				        </p:row>				    
 				    </f:facet>
 				 	<p:row>
@@ -34,7 +34,7 @@
 						    <h:outputText value="Personalnummer:" styleClass="benutzerErfassenLabel"/>
 				 		</p:column>
 				 		<p:column>
-						    <p:inputText id="inputPersonalnummer" value="#{mitarbeiterListe.selected.mitarbeiter.personalNR}" maxlength="6" disabled="#{mitarbeiterListe.inputPersonalnummerDisabled}" required="true" requiredMessage="Personalnummer darf nicht leer sein !">
+						    <p:inputText id="inputPersonalnummer" value="#{mitarbeiterDetails.selected.mitarbeiter.personalNR}" maxlength="6" disabled="#{mitarbeiterDetails.inputPersonalnummerDisabled}" required="true" requiredMessage="Personalnummer darf nicht leer sein !">
 						    </p:inputText>
 				 		</p:column>
 				 		<p:column style="width: 40%; padding: 30px 0px;">
@@ -47,7 +47,7 @@
 						    <h:outputText value="NetzwerkID:" styleClass="benutzerErfassenLabel"/>	
 				 		</p:column>
 				 		<p:column>
-						    <p:inputText id="inputNetzwerkID" value="#{mitarbeiterListe.selected.mitarbeiter.username}" required="false"/>				 		
+						    <p:inputText id="inputNetzwerkID" value="#{mitarbeiterDetails.selected.mitarbeiter.username}" required="false"/>				 		
 				 		</p:column>
 				 		<p:column style="width: 40%; padding: 30px 0px;">
 						 	<p:message for="inputNetzwerkID" />				 		
@@ -59,7 +59,7 @@
 						    <h:outputText value="Nachname:" styleClass="benutzerErfassenLabel"/>				 		
 				 		</p:column>
 				 		<p:column>
-						    <p:inputText id="inputNachname" value="#{mitarbeiterListe.selected.mitarbeiter.nachname}" required="true" requiredMessage="Nachname darf nicht leer sein !">
+						    <p:inputText id="inputNachname" value="#{mitarbeiterDetails.selected.mitarbeiter.nachname}" required="true" requiredMessage="Nachname darf nicht leer sein !">
 						    </p:inputText>				 		
 				 		</p:column>
 				 		<p:column style="width: 40%; padding: 30px 0px;">
@@ -72,7 +72,7 @@
 						    <h:outputText value="Vorname:" styleClass="benutzerErfassenLabel"/>				 		
 				 		</p:column>
 				 		<p:column>
-						    <p:inputText id="inputVorname" value="#{mitarbeiterListe.selected.mitarbeiter.vorname}" required="false"/>				 		
+						    <p:inputText id="inputVorname" value="#{mitarbeiterDetails.selected.mitarbeiter.vorname}" required="false"/>				 		
 				 		</p:column>
 				 		<p:column style="width: 40%; padding: 30px 0px;">
 						 	<p:message for="inputVorname" />				 		
@@ -81,13 +81,13 @@
 				 	
 				 	<p:row>
 				 		<p:column>
-						 	<p:commandButton id="btnBenutzerReset" value="zurücksetzen" actionListener="#{mitarbeiterListe.reset}" process="@this" update="@(:input)" disabled="#{mitarbeiterListe.btnBenutzerResetDisabled}" icon="menuUserDisabled"/>				 					 		
+						 	<p:commandButton id="btnBenutzerReset" value="zurücksetzen" actionListener="#{mitarbeiterDetails.reset}" process="@this" update="@(:input)" disabled="#{mitarbeiterDetails.btnBenutzerResetDisabled}" icon="menuUserDisabled"/>				 					 		
 				 		</p:column>
 				 		<p:column style="padding-left: 30px;">
-				 			<p:commandButton id="btnBenutzerAktualisieren" value="aktualisieren" actionListener="#{mitarbeiterListe.update}" process="formEdit" update="formEdit dataTableMitarbeiter msgs" disabled="#{mitarbeiterListe.btnBenutzerAktualisierenDisabled}" icon="menuUserEdit"/>
+				 			<p:commandButton id="btnBenutzerAktualisieren" value="aktualisieren" actionListener="#{mitarbeiterDetails.update}" process="formEdit" update="formEdit dataTableMitarbeiter msgs" disabled="#{mitarbeiterDetails.btnBenutzerAktualisierenDisabled}" icon="menuUserEdit"/>
 				 		</p:column>
 				 		<p:column style="width: 40%; padding: 30px 0px;">
-						 	<p:commandButton id="btnBenutzerSpeichern" value="speichern" actionListener="#{mitarbeiterListe.save()}" process="formEdit" update="formEdit dataTableMitarbeiter msgs" disabled="#{mitarbeiterListe.btnBenutzerSpeichernDisabled}" icon="menuUserAdd"/>		 		
+						 	<p:commandButton id="btnBenutzerSpeichern" value="speichern" actionListener="#{mitarbeiterDetails.save()}" process="formEdit" update="formEdit dataTableMitarbeiter msgs" disabled="#{mitarbeiterDetails.btnBenutzerSpeichernDisabled}" icon="menuUserAdd"/>		 		
 				 		</p:column>
 				 	</p:row>
 				 	
@@ -96,35 +96,33 @@
 	
 		    </p:layoutUnit>
 	    <p:layoutUnit id="dbMitarbeiterUnit" position="center" size="800">
-	    	<p:dataTable id="dataTableMitarbeiter" var="mbean" value="#{mitarbeiterListe.mitarbeiterModel}" selectionMode="single" selection="#{mitarbeiterListe.selected}" rowKey="#{mbean.mitarbeiter.personalNR}">
+	    	<p:dataTable id="dataTableMitarbeiter" var="azv" value="#{mitarbeiterDetails.arbeitszeitanteile}" selectionMode="single" rowKey="#{azv.arbeitszeitAnteil.id}">
 			    <f:facet name="header">
-			    	<h:form id="formMigrate">
-			    		<p:commandLink actionListener="#{mitarbeiterListe.migrate()}">
-							<h:outputText value="Aktuell in der Datenbank vorhandene Mitarbeiter" />
-			    		</p:commandLink>
-			    	</h:form>
-    			</f:facet>
-    			<p:ajax event="rowSelect" listener="#{mitarbeiterListe.onRowSelect}" update="@(form) msgs" />
-				    <p:column headerText="Personalnummer" sortBy="#{mbean.mitarbeiter.personalNR}">
-				        <h:outputText value="#{mbean.mitarbeiter.personalNR}" />
+			    	<h:outputText value="Aktuell in der Datenbank vorhandene Arbeitszeitanteile" />
+				</f:facet>
+    			<p:ajax event="rowSelect" listener="#{mitarbeiterDetails.onRowSelect}" update="@(form) msgs" />
+				    <p:column headerText="ID" sortBy="#{azv.arbeitszeitAnteil.id}">
+				        <h:outputText value="#{azv.arbeitszeitAnteil.id}" />
 				    </p:column>
-				    <p:column headerText="NetzwerkID" sortBy="#{mbean.mitarbeiter.username}">
-				        <h:outputText value="#{mbean.mitarbeiter.username}" />
+				    <p:column headerText="PersonalNR" sortBy="#{azv.arbeitszeitAnteil.mitarbeiterPNR}">
+				        <h:outputText value="#{azv.arbeitszeitAnteil.mitarbeiterPNR}" />
 				    </p:column>
-				 
-				    <p:column headerText="Nachname" sortBy="#{mbean.mitarbeiter.nachname}">
-				        <h:outputText value="#{mbean.mitarbeiter.nachname}" />
+				    <p:column headerText="Berichtsmonat" sortBy="#{azv.arbeitszeitAnteil.berichtsmonat}">
+				        <h:outputText value="#{azv.arbeitszeitAnteil.berichtsmonat}" />
 				    </p:column>
-				 
-				    <p:column headerText="Vorname">
-				        <h:outputText value="#{mbean.mitarbeiter.vorname}" />
+				    <p:column headerText="Team" sortBy="#{azv.arbeitszeitAnteil.team}">
+				        <h:outputText value="#{azv.arbeitszeitAnteil.team}" />
 				    </p:column>
+				    <p:column headerText="KST" sortBy="#{azv.arbeitszeitAnteil.kostenstelle}">
+				        <h:outputText value="#{azv.arbeitszeitAnteil.kostenstelle}" />
+				    </p:column>
+				    <p:column headerText="KTR" sortBy="#{azv.arbeitszeitAnteil.kostentraeger}">
+				        <h:outputText value="#{azv.arbeitszeitAnteil.kostentraeger}" />
+				    </p:column>				    
+				    <p:column headerText="%" sortBy="#{azv.arbeitszeitAnteil.prozentanteil}">
+				        <h:outputText value="#{azv.arbeitszeitAnteil.prozentanteil}" />
+				    </p:column>				    
 				</p:dataTable>	
-				<h:form id="contextForm">
-					<p:contextMenu for="dataTableMitarbeiter">
-	        			<p:menuitem value="löschen" process="contextForm" update="formEdit dataTableMitarbeiter msgs" icon="menuUserDisabled" actionListener="#{mitarbeiterListe.delete}"/>
-	    			</p:contextMenu>	    
-				</h:form>				
 	    </p:layoutUnit>
  
 	    <p:layoutUnit position="south" size="80" resizable="true">

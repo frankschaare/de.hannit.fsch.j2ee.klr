@@ -14,7 +14,7 @@ import de.hannit.fsch.klr.model.csv.CSV01Datei;
 import de.hannit.fsch.klr.model.mitarbeiter.Mitarbeiter;
 import de.hannit.fsch.klr.web.commands.CreateCSV01Command;
 import de.hannit.fsch.klr.web.commands.CreateMitarbeiterCommand;
-import de.hannit.fsch.klr.web.commands.MessageDrivenCommand;
+import de.hannit.fsch.klr.web.commands.CreateMitarbeiterMDC;
 
 /*
  * Controller für die MenuBar
@@ -26,10 +26,10 @@ public class MenuBar implements Serializable, ICommand
 private static final long serialVersionUID = 6140206232199776516L;
 private CreateCSV01Command createCSV01Command = new CreateCSV01Command();
 private CreateMitarbeiterCommand createMitarbeiterCommand = new CreateMitarbeiterCommand();
-private MessageDrivenCommand test = new MessageDrivenCommand();
 private String downloadPath = null;
 private CSV01Datei csv01 = null;
 private MonatsSummen monatsSummen = null;
+private Serializable activeSelection;
 
 	public MenuBar() 
 	{
@@ -39,6 +39,7 @@ private MonatsSummen monatsSummen = null;
 
 	public CreateCSV01Command getCreateCSV01Command() {return createCSV01Command;}
 	public CreateMitarbeiterCommand getCreateMitarbeiterCommand() {return createMitarbeiterCommand;}
+
 	public String getDownloadPath() {return downloadPath;}
 
 	@Override
@@ -59,6 +60,13 @@ private MonatsSummen monatsSummen = null;
 	setCsv01();	
 	}
 	
+	public Serializable getActiveSelection() {return activeSelection;}
+	public void setActiveSelection(Serializable activeSelection) 
+	{
+	this.activeSelection = activeSelection;
+	System.out.println("Menubar hat ActiveSelection erhalten !");
+	}
+
 	public CSV01Datei getCsv01() {return csv01;}
 
 	public void setCsv01() 

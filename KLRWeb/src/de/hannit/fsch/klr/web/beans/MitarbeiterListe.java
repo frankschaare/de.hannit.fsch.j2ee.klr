@@ -23,10 +23,12 @@ import de.hannit.fsch.klr.model.mitarbeiter.Mitarbeiter;
 public class MitarbeiterListe implements Serializable
 {
 private static final long serialVersionUID = 1L;
-private static final String ERFASSEN = "Mitarbeiter erfassen:";
-private static final String BEARBEITEN = "Mitarbeiter bearbeiten:";
+public static final String ERFASSEN = "Mitarbeiter erfassen:";
+public static final String BEARBEITEN = "Mitarbeiter bearbeiten:";
 @ManagedProperty (value = "#{dataService}")
 private MSSQLDataService dataService;
+@ManagedProperty (value = "#{menuBar}")
+private MenuBar menuBar;
 private FacesContext fc = null;
 private ArrayList<MitarbeiterMBean> mitarbeiterListe = new ArrayList<>();
 private MitarbeiterMBean selected = new MitarbeiterMBean(new de.hannit.fsch.klr.persistence.entities.Mitarbeiter());
@@ -49,6 +51,7 @@ private MitarbeiterDAO mitarbeiterDAO;
 	{
 	fc = FacesContext.getCurrentInstance();
 	dataService = dataService != null ? dataService : fc.getApplication().evaluateExpressionGet(fc, "#{dataService}", MSSQLDataService.class);
+	menuBar = menuBar != null ? menuBar : fc.getApplication().evaluateExpressionGet(fc, "#{menuBar}", MenuBar.class);	
 	ArrayList<Mitarbeiter> alleMitarbeiter = dataService.getMitarbeiter();
 		
 		for (Mitarbeiter mitarbeiter : alleMitarbeiter) 
@@ -88,7 +91,7 @@ private MitarbeiterDAO mitarbeiterDAO;
 	public void onRowSelect(SelectEvent event) 
 	{
 	MitarbeiterMBean mBean = (MitarbeiterMBean) event.getObject();
-	selectionService.setSelection(mBean);	
+	menuBar.getCreateMitarbeiterCommand().setMitarbeiter(mBean);
 	setSelected(mBean);
 	setGridHeaderText(MitarbeiterListe.BEARBEITEN);
 	btnBenutzerAktualisierenDisabled = false;
@@ -116,6 +119,8 @@ private MitarbeiterDAO mitarbeiterDAO;
 	public boolean isInputPersonalnummerDisabled() {return inputPersonalnummerDisabled;}
 	public MSSQLDataService getDataService() {return dataService;}
 	public void setDataService(MSSQLDataService dataService) {this.dataService = dataService;}
+	public MenuBar getMenuBar() {return menuBar;}
+	public void setMenuBar(MenuBar menuBar) {this.menuBar = menuBar;}
 
 	
     
