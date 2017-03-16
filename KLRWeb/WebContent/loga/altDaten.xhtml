@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:view contentType="text/html">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>LoGa Altdaten</title>
+	<f:facet name="last">
+		<h:outputStylesheet library="css" name="default.css" target="head" />
+  	</f:facet>
+</h:head>
+<h:body>
+
+	<p:layout id="logaMigrationLayout" fullPage="true">
+ 	    <p:layoutUnit position="north" size="45" resizable="true" styleClass="menu">
+	        <ui:include src="/WEB-INF/navigation/menu.xhtml" />
+	    </p:layoutUnit>
+
+	    <p:layoutUnit id="dbLogaUnit" position="center" size="800">
+	    	<p:dataTable id="dataTableLoga" var="mbean" value="#{loGaMigration.model}" selectionMode="single" selection="#{loGaMigration.selected}" rowKey="#{mbean.logaDatensatz.id}">
+			    <f:facet name="header">
+			    	<h:form id="formMigrate">
+			    		<p:commandLink actionListener="#{loGaMigration.migrate()}">
+							<h:outputText value="Aktuell in der Datenbank vorhandene LoGa Datensätze" />
+			    		</p:commandLink>
+			    	</h:form>
+    			</f:facet>
+				    <p:column headerText="Personalnummer" sortBy="#{mbean.logaDatensatz.mitarbeiterPNR}">
+				        <h:outputText value="#{mbean.logaDatensatz.mitarbeiterPNR}" />
+				    </p:column>
+				    <p:column headerText="Berichtsmonat" sortBy="#{mbean.logaDatensatz.berichtsmonat}">
+				        <h:outputText value="#{mbean.logaDatensatz.berichtsmonat}" />
+				    </p:column>
+				 
+				    <p:column headerText="Brutto" sortBy="#{mbean.logaDatensatz.brutto}">
+				        <h:outputText value="#{mbean.logaDatensatz.brutto}" />
+				    </p:column>
+				 
+				    <p:column headerText="Tarifgruppe">
+				        <h:outputText value="#{mbean.logaDatensatz.tarifgruppe}" />
+				    </p:column>
+				    <p:column headerText="Tarifstufe">
+				        <h:outputText value="#{mbean.logaDatensatz.tarifstufe}" />
+				    </p:column>
+				    
+				    <p:column headerText="Stellenanteil">
+				        <h:outputText value="#{mbean.logaDatensatz.stellenanteil}" />
+				    </p:column>
+				    
+				</p:dataTable>	
+
+	    </p:layoutUnit>
+ 
+	    <p:layoutUnit position="south" size="80" resizable="true">
+	        <p:messages id="msgs" showDetail="true" globalOnly="true"/>
+	    </p:layoutUnit>
+	</p:layout>
+		
+</h:body>
+</f:view>
+</html>

@@ -24,6 +24,10 @@
             <p:menuitem id="menuitemBenutzerErfassen" value="bearbeiten" disabled="#{menuBar.createMitarbeiterCommand.disabled}" action="/mitarbeiter/details.xhtml?faces-redirect=true" icon="menuUserAdd" />
             <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
         </p:submenu>
+
+        <p:submenu id="subMenuDB" label="Datenbank" icon="buttonDBUpdate">
+            <p:menuitem id="dbLoGaMigration" value="LoGa Migration" action="/loga/altDaten.xhtml?faces-redirect=true" disabled="#{dataService.notConnectedALT}" icon="buttonDBInsert" />
+        </p:submenu>
  
         <p:submenu id="subMenuAZV" label="AZV" icon="menuAZVImport">
             <p:menuitem id="menuitemWebservice" value="Webservice" url="#" icon="menuAZVWebservice" />

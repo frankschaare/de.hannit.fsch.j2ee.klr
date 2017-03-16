@@ -23,7 +23,6 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.ejb.EJB;
 import javax.faces.application.ProjectStage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -33,7 +32,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import de.hannit.fsch.klr.dataservice.DataService;
-import de.hannit.fsch.klr.ejb.interfaces.MitarbeiterDAO;
 import de.hannit.fsch.klr.model.Datumsformate;
 import de.hannit.fsch.klr.model.azv.AZVDaten;
 import de.hannit.fsch.klr.model.azv.AZVDatensatz;
@@ -83,6 +81,7 @@ private ArrayList<LocalDate> logaBerichtsMonate = null;
 private LocalDate maxDate = null;	
 private LocalDate maxAZVDate = null;	
 private LocalDate maxLoGaDate = null;
+private boolean notConnectedALT = true;
 
 private Organisation hannit = null;
 
@@ -108,6 +107,7 @@ private Organisation hannit = null;
 			this.info += " verbunden mit " + dbmd.getDatabaseProductName() + " (" + dbmd.getDatabaseProductVersion() + ")";
 			this.info += " - " + dbmd.getDriverName() + " (" + dbmd.getDriverVersion() + ")";
 			System.out.println(info);
+			setNotConnectedALT(false);
 			
 /*			azvBerichtsMonate = new ArrayList<>();
 			ps = con.prepareStatement(PreparedStatements.SELECT_ARBEITSZEITANTEILE_BERICHTSMONATE);
@@ -462,7 +462,35 @@ private Organisation hannit = null;
 	return e;
 	}
 
+	public ArrayList<LoGaDatensatz> getLoGaDaten()
+	{
+	LoGaDatensatz ds = null;
+	ArrayList<LoGaDatensatz> daten = new ArrayList<>();
+		try 
+		{
+		ps = con.prepareStatement(PreparedStatements.SELECT_ALL_LOGA);
+		rs = ps.executeQuery();
+		
+	      while (rs.next()) 
+	      {
+	      ds = new LoGaDatensatz();
+	      ds.setPersonalNummer(rs.getInt(1));
+	      ds.setAbrechnungsMonat(rs.getDate(2));
+	      ds.setBrutto(rs.getDouble(3));
+	      ds.setTarifGruppe(rs.getString(4));
+	      ds.setTarifstufe(rs.getInt(5));
+	      ds.setStellenAnteil(rs.getDouble(6));
+	      
+	      daten.add(ds);
+	      }
+		} 
+		catch (SQLException e) 
+		{
+		e.printStackTrace();
+		}
 
+	return daten;
+	}
 
 	@Override
 	public SQLException setLoGaDaten(LoGaDatensatz datenSatz)
@@ -2156,6 +2184,8 @@ private Organisation hannit = null;
 	public LocalDate getMaxAZVDate() {return maxAZVDate;}
 	public LocalDate getMaxLoGaDate() {return maxLoGaDate;}
 	public Organisation getHannit() {return hannit;}
+	public boolean isNotConnectedALT() {return notConnectedALT;}
+	public void setNotConnectedALT(boolean connected) {this.notConnectedALT = connected;}
 	
 	
 	

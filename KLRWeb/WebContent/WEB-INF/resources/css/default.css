@@ -113,6 +113,12 @@ body {
    	background-image:url(#{resource['/images/delete_16.png']}) !important;
 }
 
+.buttonDBInsert
+{
+	padding-right: 3px;
+   	background-image:url(#{resource['/images/dataBaseInsert16px.png']}) !important;
+}
+
 .buttonDBUpdate
 {
 	padding-right: 3px;

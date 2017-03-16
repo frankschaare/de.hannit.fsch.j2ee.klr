@@ -11,7 +11,6 @@ import de.hannit.fsch.klr.model.Constants;
 import de.hannit.fsch.klr.model.azv.Arbeitszeitanteil;
 import de.hannit.fsch.klr.model.mitarbeiter.Person;
 import de.hannit.fsch.klr.model.team.TeamMitgliedschaft;
-import de.hannit.fsch.klr.persistence.entities.Mitarbeiter;
 
 /**
  * @author fsch
@@ -26,8 +25,6 @@ public static final int STATUS_AUSZUBILDENDER = 6;
 public static final int STATUS_ALTERSTEILZEIT_ANGESTELLTE = 7;
 public static final int STATUS_ALTERSTEILZEIT_BEAMTE = 8;
 public static final int STATUS_ELTERNZEIT = 5;
-
-private Mitarbeiter mitarbeiter;
 
 private int personalNR = 0;
 private int teamNR = -1;

@@ -75,6 +75,7 @@ public static final String INSERT_MONATSSUMMEN = "INSERT INTO [dbo].[Monatssumme
 public static final String INSERT_MONATSSUMMENVZAE = "INSERT INTO [dbo].[MonatssummenVZAE] ([ID], [Berichtsmonat], [Tarifgruppe], [SummeTarifgruppe], [SummeStellen], [VZAE]) VALUES (NEWID(), ?, ?, ?, ?, ?)";
 
 public static final String SELECT_LOGA_BERICHTSMONATE = "SELECT Distinct [berichtsmonat] FROM [dbo].[LogaDatensatz] ORDER BY berichtsmonat";
+public static final String SELECT_ALL_LOGA = "SELECT * FROM [dbo].[LoGa]";
 public static final String INSERT_LOGA = "INSERT INTO [dbo].[LoGa] ([Mitarbeiter_PNR], [Berichtsmonat], [Brutto], [Tarifgruppe], [Tarifstufe], [Stellenanteil]) VALUES (?, ?, ?, ?, ?, ?)";
 public static final String SELECT_LOGADATENSATZ_BERICHTSMONAT = "SELECT * FROM [dbo].[LoGa] WHERE Mitarbeiter_PNR = ? AND Berichtsmonat = ?";
 public static final String DELETE_LOGADATEN_BERICHTSMONAT = "DELETE FROM [dbo].[LoGa] WHERE Berichtsmonat = ?";
