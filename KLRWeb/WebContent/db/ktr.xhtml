@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:view contentType="text/html">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>LoGa Altdaten</title>
+	<f:facet name="last">
+		<h:outputStylesheet library="css" name="default.css" target="head" />
+  	</f:facet>
+</h:head>
+<h:body>
+
+	<p:layout id="ktrMigrationLayout" fullPage="true">
+ 	    <p:layoutUnit position="north" size="45" resizable="true" styleClass="menu">
+	        <ui:include src="/WEB-INF/navigation/menu.xhtml" />
+	    </p:layoutUnit>
+
+	    <p:layoutUnit id="dbKTRUnit" position="center" size="800">
+	    	<p:dataTable id="dataTableKTR" var="ktr" value="#{kTRMigration.model}" selectionMode="single" selection="#{kTRMigration.selected}" rowKey="#{ktr.bezeichnung}">
+			    <f:facet name="header">
+			    	<h:form id="formMigrate">
+			    		<p:commandLink actionListener="#{kTRMigration.migrate()}">
+							<h:outputText value="Aktuell in der Datenbank vorhandene Kostenträger" />
+			    		</p:commandLink>
+			    	</h:form>
+    			</f:facet>
+				    <p:column headerText="Kostenträger" sortBy="#{ktr.bezeichnung}">
+				        <h:outputText value="#{ktr.bezeichnung}" />
+				    </p:column>
+				 
+				    <p:column headerText="Beschreibung" sortBy="#{ktr.beschreibung}">
+				        <h:outputText value="#{ktr.beschreibung}" />
+				    </p:column>
+				    
+				</p:dataTable>	
+
+	    </p:layoutUnit>
+ 
+	    <p:layoutUnit position="south" size="80" resizable="true">
+	        <p:messages id="msgs" showDetail="true" globalOnly="true"/>
+	    </p:layoutUnit>
+	</p:layout>
+		
+</h:body>
+</f:view>
+</html>

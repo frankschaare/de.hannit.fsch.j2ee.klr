@@ -27,6 +27,8 @@
 
         <p:submenu id="subMenuDB" label="Datenbank" icon="buttonDBUpdate">
             <p:menuitem id="dbLoGaMigration" value="LoGa Migration" action="/loga/altDaten.xhtml?faces-redirect=true" disabled="#{dataService.notConnectedALT}" icon="buttonDBInsert" />
+            <p:menuitem id="dbKSTMigration" value="KST Migration" action="/db/kst.xhtml?faces-redirect=true" disabled="#{dataService.notConnectedALT}" icon="buttonDBInsert" />
+            <p:menuitem id="dbKTRMigration" value="KTR Migration" action="/db/ktr.xhtml?faces-redirect=true" disabled="#{dataService.notConnectedALT}" icon="buttonDBInsert" />  
         </p:submenu>
  
         <p:submenu id="subMenuAZV" label="AZV" icon="menuAZVImport">

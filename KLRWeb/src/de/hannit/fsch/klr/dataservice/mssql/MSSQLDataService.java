@@ -461,6 +461,60 @@ private Organisation hannit = null;
 		}	
 	return e;
 	}
+	
+	public ArrayList<KostenTraeger> getKostenTraeger()
+	{
+	KostenTraeger ktr = null;
+	ArrayList<KostenTraeger> daten = new ArrayList<>();
+		try 
+		{
+		ps = con.prepareStatement(PreparedStatements.SELECT_KOSTENTRAEGER);
+		rs = ps.executeQuery();
+		
+		    while (rs.next()) 
+		    {
+		    ktr = new KostenTraeger();
+		    ktr.setBezeichnung(rs.getString(1));
+		    ktr.setBeschreibung(rs.getString(2));
+	     
+			daten.add(ktr);
+		    }
+
+		} 
+		catch (SQLException e) 
+		{
+		e.printStackTrace();
+		}
+
+	return daten;
+	}	
+	
+	public ArrayList<KostenStelle> getKostenstellen()
+	{
+	KostenStelle kst = null;
+	ArrayList<KostenStelle> daten = new ArrayList<>();
+		try 
+		{
+		ps = con.prepareStatement(PreparedStatements.SELECT_KOSTENSTELLEN);
+		rs = ps.executeQuery();
+		
+		    while (rs.next()) 
+		    {
+			kst = new KostenStelle();
+			kst.setBezeichnung(rs.getString(1));
+			kst.setBeschreibung(rs.getString(2));
+	     
+			daten.add(kst);
+		    }
+
+		} 
+		catch (SQLException e) 
+		{
+		e.printStackTrace();
+		}
+
+	return daten;
+	}	
 
 	public ArrayList<LoGaDatensatz> getLoGaDaten()
 	{
