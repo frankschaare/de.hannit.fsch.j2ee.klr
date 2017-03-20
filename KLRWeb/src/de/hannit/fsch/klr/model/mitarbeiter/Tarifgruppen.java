@@ -1,7 +1,8 @@
 package de.hannit.fsch.klr.model.mitarbeiter;
 
+import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.TreeMap;
 
 import de.hannit.fsch.common.AppConstants;
@@ -10,11 +11,11 @@ import de.hannit.fsch.klr.model.Datumsformate;
 public class Tarifgruppen 
 {
 private TreeMap<String, Tarifgruppe> tarifGruppen = new TreeMap<String, Tarifgruppe>();
-private double summeTarifgruppen = 0;
+private BigDecimal summeTarifgruppen = null;
 private double summeStellen = 0;
 private double summeVollzeitAequivalent = 0;
 private int anzahlMitarbeiter = 0;
-private Date berichtsMonat = null;
+private LocalDate berichtsMonat = null;
 
 	public Tarifgruppen()
 	{
@@ -23,13 +24,13 @@ private Date berichtsMonat = null;
 	public void setTarifGruppen(TreeMap<String, Tarifgruppe> tarifGruppen){this.tarifGruppen = tarifGruppen;}
 	
 	
-	public double getSummeTarifgruppen()
+	public BigDecimal getSummeTarifgruppen()
 	{
-	summeTarifgruppen = 0;
+	summeTarifgruppen = new BigDecimal(0);
 	
 		for (Tarifgruppe t : getTarifGruppen().values())
 		{
-		summeTarifgruppen = summeTarifgruppen + t.getSummeTarifgruppe();	
+		summeTarifgruppen = summeTarifgruppen.add(t.getSummeTarifgruppe());	
 		}
 	return summeTarifgruppen;
 	}
@@ -67,8 +68,8 @@ private Date berichtsMonat = null;
 	public String getFormattedAnzahlMitarbeiter(){return String.valueOf(getAnzahlMitarbeiter()) + " Mitarbeiter";}
 	
 	public void setAnzahlMitarbeiter(int anzahlMitarbeiter)	{this.anzahlMitarbeiter = anzahlMitarbeiter;}
-	public Date getBerichtsMonat(){	return berichtsMonat;}
+	public LocalDate getBerichtsMonat(){	return berichtsMonat;}
 	public String getFormattedBerichtsMonat(){return Datumsformate.MONATLANG_JAHR.format(getBerichtsMonat());}
-	public void setBerichtsMonat(Date berichtsMonat){this.berichtsMonat = berichtsMonat;}
+	public void setBerichtsMonat(LocalDate berichtsMonat){this.berichtsMonat = berichtsMonat;}
 	
 }

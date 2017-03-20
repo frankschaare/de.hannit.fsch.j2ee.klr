@@ -9,9 +9,9 @@ import java.util.Date;
 import java.util.TreeMap;
 
 import de.hannit.fsch.klr.model.Datumsformate;
-import de.hannit.fsch.klr.model.azv.Arbeitszeitanteil;
 import de.hannit.fsch.klr.model.kostenrechnung.Kostenrechnungsobjekt;
-import de.hannit.fsch.klr.web.beans.MitarbeiterBean;
+import de.hannit.fsch.klr.web.beans.ArbeitszeitanteilMBean;
+import de.hannit.fsch.klr.web.beans.MitarbeiterMBean;
 import de.hannit.fsch.util.DateUtility;
 
 /**
@@ -45,15 +45,15 @@ private String monatsNummer = null;
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void setGesamtSummen(TreeMap<Integer, MitarbeiterBean> incoming)
+	public void setGesamtSummen(TreeMap<Integer, MitarbeiterMBean> incoming)
 	{
 	gesamtKosten = new TreeMap<String, Kostenrechnungsobjekt>();
 	gesamtKostenstellen = new TreeMap<String, Kostenrechnungsobjekt>();
 	gesamtKostentraeger = new TreeMap<String, Kostenrechnungsobjekt>();
 	
-		for (MitarbeiterBean m : incoming.values())
+		for (MitarbeiterMBean m : incoming.values())
 		{	
-			for (Arbeitszeitanteil azv : m.getAzvMonat().values())
+			for (ArbeitszeitanteilMBean azv : m.getAzvMonat())
 			{
 				/*
 				 * Ist die Kostenstelle / Kostenträger bereits in den Monatssummen gespeichert ?

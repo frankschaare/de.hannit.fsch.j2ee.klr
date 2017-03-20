@@ -4,6 +4,7 @@
 package de.hannit.fsch.klr.dataservice.mssql;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.Date;
@@ -1208,9 +1209,9 @@ private Organisation hannit = null;
 		    while (rs.next()) 
 		    {
 		    Tarifgruppe t = new Tarifgruppe();
-		    t.setBerichtsMonat(selectedMonth);
+		    t.setBerichtsMonat(DateUtility.asLocalDate(selectedMonth));
 		    t.setTarifGruppe(rs.getString(1));
-		    t.setSummeTarifgruppe(rs.getDouble(2));
+		    t.setSummeTarifgruppe(BigDecimal.valueOf(rs.getDouble(2)));
 		    t.setSummeStellen(rs.getDouble(3));
 		    
 		    tarifgruppen.getTarifGruppen().put(t.getTarifGruppe(), t);

@@ -6,6 +6,7 @@ package de.hannit.fsch.klr.model.team;
 import java.util.TreeMap;
 
 import de.hannit.fsch.klr.model.mitarbeiter.Mitarbeiter;
+import de.hannit.fsch.klr.web.beans.MitarbeiterMBean;
 
 /**
  * @author fsch
@@ -15,13 +16,11 @@ public class Team
 {
 private int teamNummer = -1;
 private String teamBezeichnung = null;
-private TreeMap<String, Mitarbeiter> teamMitglieder = new TreeMap<String, Mitarbeiter>();
-private TreeMap<Integer, Mitarbeiter> angestellte = new TreeMap<Integer, Mitarbeiter>();
-private TreeMap<Integer, Mitarbeiter> beamte = new TreeMap<Integer, Mitarbeiter>();
-private TreeMap<Integer, Mitarbeiter> mitarbeitAufVorkostenstellen = new TreeMap<Integer, Mitarbeiter>();
-private TreeMap<Integer, Mitarbeiter> mitarbeitAltersteilzeit = new TreeMap<Integer, Mitarbeiter>();
-
-	/**
+private TreeMap<String, MitarbeiterMBean> teamMitglieder = new TreeMap<String, MitarbeiterMBean>();
+private TreeMap<Integer, MitarbeiterMBean> angestellte = new TreeMap<Integer, MitarbeiterMBean>();
+private TreeMap<Integer, MitarbeiterMBean> beamte = new TreeMap<Integer, MitarbeiterMBean>();
+private TreeMap<Integer, MitarbeiterMBean> mitarbeitAufVorkostenstellen = new TreeMap<Integer, MitarbeiterMBean>();
+/**
 	 * 
 	 */
 	public Team(int nummer)
@@ -29,7 +28,7 @@ private TreeMap<Integer, Mitarbeiter> mitarbeitAltersteilzeit = new TreeMap<Inte
 	setTeamNummer(nummer);	
 	}
 
-	public void addMitarbeiter(Mitarbeiter m)
+	public void addMitarbeiter(MitarbeiterMBean m)
 	{
 	teamMitglieder.put(m.getNachname(), m);
 	
@@ -74,8 +73,8 @@ private TreeMap<Integer, Mitarbeiter> mitarbeitAltersteilzeit = new TreeMap<Inte
 		}
 	}
 	
-	public TreeMap<String, Mitarbeiter> getTeamMitglieder(){return teamMitglieder;}
-	public TreeMap<Integer, Mitarbeiter> getMitarbeitAufVorkostenstellen(){return mitarbeitAufVorkostenstellen;}
+	public TreeMap<String, MitarbeiterMBean> getTeamMitglieder(){return teamMitglieder;}
+	public TreeMap<Integer, MitarbeiterMBean> getMitarbeitAufVorkostenstellen(){return mitarbeitAufVorkostenstellen;}
 
 	public String getOE()
 	{
@@ -115,22 +114,22 @@ private TreeMap<Integer, Mitarbeiter> mitarbeitAltersteilzeit = new TreeMap<Inte
 		}
 	}
 
-	public TreeMap<Integer, Mitarbeiter> getAngestellte()
+	public TreeMap<Integer, MitarbeiterMBean> getAngestellte()
 	{
 		return angestellte;
 	}
 
-	public void setAngestellte(TreeMap<Integer, Mitarbeiter> angestellte)
+	public void setAngestellte(TreeMap<Integer, MitarbeiterMBean> angestellte)
 	{
 		this.angestellte = angestellte;
 	}
 
-	public TreeMap<Integer, Mitarbeiter> getBeamte()
+	public TreeMap<Integer, MitarbeiterMBean> getBeamte()
 	{
 		return beamte;
 	}
 
-	public void setBeamte(TreeMap<Integer, Mitarbeiter> beamte)
+	public void setBeamte(TreeMap<Integer, MitarbeiterMBean> beamte)
 	{
 		this.beamte = beamte;
 	}

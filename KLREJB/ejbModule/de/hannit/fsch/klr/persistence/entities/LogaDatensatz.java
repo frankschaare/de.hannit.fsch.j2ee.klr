@@ -21,7 +21,8 @@ import de.hannit.fsch.klr.persistence.queries.SQL;
 @NamedQueries
 ({
 @NamedQuery(name=SQL.NAMEDQUERY_LOGA_GETALL, query=SQL.NAMEDQUERY_LOGA_GETALL_SQL),
-@NamedQuery(name=SQL.NAMEDQUERY_LOGA_FINDBYDATE, query=SQL.NAMEDQUERY_LOGA_FINDBYDATE_SQL)
+@NamedQuery(name=SQL.NAMEDQUERY_LOGA_FINDBYDATE, query=SQL.NAMEDQUERY_LOGA_FINDBYDATE_SQL),
+@NamedQuery(name=SQL.NAMEDQUERY_LOGA_FINDMAXDATE, query=SQL.NAMEDQUERY_LOGA_FINDMAXDATE_SQL)
 })
 public class LogaDatensatz implements Serializable
 {

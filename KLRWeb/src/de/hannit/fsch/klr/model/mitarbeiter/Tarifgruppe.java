@@ -3,8 +3,9 @@
  */
 package de.hannit.fsch.klr.model.mitarbeiter;
 
+import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 import de.hannit.fsch.common.AppConstants;
 
@@ -15,8 +16,8 @@ import de.hannit.fsch.common.AppConstants;
 public class Tarifgruppe
 {
 private String tarifGruppe = null;
-private Date berichtsMonat = null;
-private double summeTarifgruppe = 0;
+private LocalDate berichtsMonat = null;
+private BigDecimal summeTarifgruppe = null;
 private double summeStellen = 0;
 private double vollzeitAequivalent = 0;
 
@@ -29,10 +30,10 @@ private double vollzeitAequivalent = 0;
 
 	public double getVollzeitAequivalent()
 	{
-		if (summeTarifgruppe > 0 && summeStellen > 0)
+		if (summeTarifgruppe.doubleValue() > 0 && summeStellen > 0)
 		{
 		//sumStellen = (summeStellen < 1) ? 1 : summeStellen;	
-		vollzeitAequivalent = summeTarifgruppe / summeStellen;
+		vollzeitAequivalent = summeTarifgruppe.doubleValue() / summeStellen;
 		}
 		
 	return vollzeitAequivalent;
@@ -50,29 +51,34 @@ private double vollzeitAequivalent = 0;
 		this.tarifGruppe = tarifGruppe;
 	}
 
-	public Date getBerichtsMonat()
+	public LocalDate getBerichtsMonat()
 	{
-		return berichtsMonat;
+	return berichtsMonat;
 	}
 
-	public void setBerichtsMonat(Date berichtsMonat)
+	public void setBerichtsMonat(LocalDate berichtsMonat)
 	{
-		this.berichtsMonat = berichtsMonat;
+	this.berichtsMonat = berichtsMonat;
 	}
 
-	public double getSummeTarifgruppe()
+	public BigDecimal getSummeTarifgruppe()
 	{
-		return summeTarifgruppe;
+	return summeTarifgruppe;
 	}
 
 	public String getFormattedSummeTarifgruppe()
 	{
 	return NumberFormat.getCurrencyInstance().format((getSummeTarifgruppe()));
 	}
-	
-	public void setSummeTarifgruppe(double summeTarifgruppe)
+
+	public void addSummeTarifgruppe(BigDecimal toAdd)
 	{
-		this.summeTarifgruppe = summeTarifgruppe;
+	this.summeTarifgruppe = summeTarifgruppe.add(toAdd);
+	}
+	
+	public void setSummeTarifgruppe(BigDecimal summeTarifgruppe)
+	{
+	this.summeTarifgruppe = summeTarifgruppe;
 	}
 
 	public double getSummeStellen()
@@ -85,6 +91,11 @@ private double vollzeitAequivalent = 0;
 	return AppConstants.KOMMAZAHL.format((getSummeStellen()));
 	}
 
+	public void addSummeStellen(double toAdd)
+	{
+	this.summeStellen += toAdd;
+	}
+	
 	public void setSummeStellen(double summeStellen)
 	{
 		this.summeStellen = summeStellen;

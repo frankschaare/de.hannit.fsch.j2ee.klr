@@ -60,7 +60,13 @@ private EntityManager em;
 	@Override
 	public List<LogaDatensatz> findByDate(LocalDate berichtsMonat) 
 	{
-	return em.createNamedQuery(SQL.NAMEDQUERY_LOGA_FINDBYDATE, LogaDatensatz.class).setParameter("berichtsMonat", Date.from(berichtsMonat.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()), TemporalType.DATE).getResultList();
+	return em.createNamedQuery(SQL.NAMEDQUERY_LOGA_FINDBYDATE, LogaDatensatz.class).setParameter("berichtsmonat", berichtsMonat).getResultList();
+	}
+
+	@Override
+	public LocalDate findMAXDate() 
+	{
+	return em.createNamedQuery(SQL.NAMEDQUERY_LOGA_FINDMAXDATE, LocalDate.class).getSingleResult();
 	}
 
 

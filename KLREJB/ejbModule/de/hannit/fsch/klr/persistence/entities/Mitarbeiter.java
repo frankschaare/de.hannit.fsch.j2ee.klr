@@ -16,7 +16,6 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import de.hannit.fsch.klr.persistence.enums.Teams;
 import de.hannit.fsch.klr.persistence.queries.SQL;
 
 @Entity

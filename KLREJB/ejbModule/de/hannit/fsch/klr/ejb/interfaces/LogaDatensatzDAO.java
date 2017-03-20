@@ -13,4 +13,5 @@ public LogaDatensatz getLogaDatensatz(int id);
 public void delete(int id);
 public List<LogaDatensatz> getAll();
 public List<LogaDatensatz> findByDate(LocalDate berichtsMonat);
+public LocalDate findMAXDate();
 }

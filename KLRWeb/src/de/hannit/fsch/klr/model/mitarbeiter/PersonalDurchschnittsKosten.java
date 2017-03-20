@@ -4,11 +4,13 @@
 package de.hannit.fsch.klr.model.mitarbeiter;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
 
-import de.hannit.fsch.klr.model.azv.Arbeitszeitanteil;
 import de.hannit.fsch.klr.model.team.Team;
+import de.hannit.fsch.klr.web.beans.ArbeitszeitanteilMBean;
+import de.hannit.fsch.klr.web.beans.MitarbeiterMBean;
 
 /**
  * Bei den Personaldurchschnittskosten werden die Vollzeitäquivalente
@@ -38,7 +40,7 @@ public static final String COLUMN7_SUMME_VZAE = "Gesamt VZÄ";
 public static final String COLUMN8_ABZUG_VORKOSSTENSTELLEN = "./. Vorkostenstellen";
 public static final String COLUMN9_VZAE_ENDKOSTENSTELLEN = "VZÄ Endkostenstellen";
 
-private TreeMap<Integer, Mitarbeiter> mitarbeiter;
+private TreeMap<Integer, MitarbeiterMBean> mitarbeiter;
 private TreeMap<Integer, Team> teams = new TreeMap<Integer, Team>();	
 private Date berichtsMonat = null;
 private boolean checked = false;
@@ -52,7 +54,7 @@ private boolean datenOK = false;
 	this.berichtsMonat = selectedMonth;	
 	}
 
-	public TreeMap<Integer, Mitarbeiter> getMitarbeiter()
+	public TreeMap<Integer, MitarbeiterMBean> getMitarbeiter()
 	{
 	return mitarbeiter;
 	}
@@ -73,14 +75,14 @@ private boolean datenOK = false;
 		{
 			if (t.getAngestellte().size() > 0)
 			{
-				for (Mitarbeiter m : t.getAngestellte().values())
+				for (MitarbeiterMBean m : t.getAngestellte().values())
 				{
 				sumGesamt += m.getBrutto();	
 				}			
 			}
 			if (t.getBeamte().size() > 0)
 			{
-				for (Mitarbeiter m : t.getBeamte().values())
+				for (MitarbeiterMBean m : t.getBeamte().values())
 				{
 				sumGesamt += m.getBrutto();	
 				}			
@@ -100,14 +102,14 @@ private boolean datenOK = false;
 		{
 			if (t.getAngestellte().size() > 0)
 			{
-				for (Mitarbeiter m : t.getAngestellte().values())
+				for (MitarbeiterMBean m : t.getAngestellte().values())
 				{
 				sumGesamt += m.getStellenAnteil();	
 				}			
 			}
 			if (t.getBeamte().size() > 0)
 			{
-				for (Mitarbeiter m : t.getBeamte().values())
+				for (MitarbeiterMBean m : t.getBeamte().values())
 				{
 				sumGesamt += m.getStellenAnteil();	
 				}			
@@ -141,7 +143,7 @@ private boolean datenOK = false;
 	
 		if (t.getAngestellte().size() > 0)
 		{
-			for (Mitarbeiter m : t.getAngestellte().values())
+			for (MitarbeiterMBean m : t.getAngestellte().values())
 			{
 			sumBruttoAngestellte += m.getBrutto();	
 			}			
@@ -160,7 +162,7 @@ private boolean datenOK = false;
 	double sumVorkostenstellen = 0;
 	Team t = teams.get(teamNR);
 	
-		for (Mitarbeiter m : t.getMitarbeitAufVorkostenstellen().values())
+		for (MitarbeiterMBean m : t.getMitarbeitAufVorkostenstellen().values())
 		{
 		sumVorkostenstellen -= m.getStellenAnteil();	
 		}
@@ -178,7 +180,7 @@ private boolean datenOK = false;
 	double sumVZAEAngestellte = 0;
 	Team t = teams.get(teamNR);
 	
-		for (Mitarbeiter m : t.getAngestellte().values())
+		for (MitarbeiterMBean m : t.getAngestellte().values())
 		{
 		sumVZAEAngestellte += m.getStellenAnteil();	
 		}
@@ -194,7 +196,7 @@ private boolean datenOK = false;
 	double sumBruttoBeamte = 0;
 	Team t = teams.get(teamNR);
 	
-		for (Mitarbeiter m : t.getBeamte().values())
+		for (MitarbeiterMBean m : t.getBeamte().values())
 		{
 			sumBruttoBeamte += m.getBrutto();	
 		}
@@ -212,7 +214,7 @@ private boolean datenOK = false;
 	double sumVZAEBeamte = 0;
 	Team t = teams.get(teamNR);
 	
-		for (Mitarbeiter m : t.getBeamte().values())
+		for (MitarbeiterMBean m : t.getBeamte().values())
 		{
 		sumVZAEBeamte += m.getStellenAnteil();	
 		}
@@ -235,7 +237,6 @@ private boolean datenOK = false;
 	double sumBruttoBeamteGesamt = 0;
 	double sumVZAEBeamte = 0;
 	double sumVZAEBeamteGesamt = 0;
-	double abzugVorkostenStelle = 0;
 	double sumEndkostenstelle = 0;
 	double sumEndkostenstellenGesamt = 0;
 	
@@ -302,11 +303,11 @@ private boolean datenOK = false;
 	return summenTabelle;
 	}
 	
-	public void setMitarbeiter(TreeMap<Integer, Mitarbeiter> mitarbeiter)
+	public void setMitarbeiter(TreeMap<Integer, MitarbeiterMBean> mitarbeiter)
 	{
 	this.mitarbeiter = mitarbeiter;
 			
-	TreeMap<String, Arbeitszeitanteil> azvs = null;
+	ArrayList<ArbeitszeitanteilMBean> azvs = null;
 	/*
 	 * Wiewiel Prozentanteil hat der Mitarbeiter pro Team aufgewendet ?
 	 */
@@ -319,7 +320,7 @@ private boolean datenOK = false;
 		 * 
 		 * Gleichzeitig wird eine Liste mit allen Teams gebildet, für die AZV-Anteile gemeldet wurden
 		 */
-		for (Mitarbeiter m : mitarbeiter.values())
+		for (MitarbeiterMBean m : mitarbeiter.values())
 		{
 		teamNR = m.getTeamNR();
 			// Altersteilzeitler werden in ihr letztes aktives Team einsortiert:	
@@ -345,7 +346,7 @@ private boolean datenOK = false;
 		
 		prozentanteileTeams = new TreeMap<Integer, Integer>();	
 		azvs = m.getAzvMonat();	
-			for (Arbeitszeitanteil azv : azvs.values())
+			for (ArbeitszeitanteilMBean azv : azvs)
 			{
 				if (prozentanteileTeams.containsKey(teamNR))
 				{
@@ -361,7 +362,7 @@ private boolean datenOK = false;
 		}	
 	}
 	
-	private void addTeamMitglied(int teamNR, Mitarbeiter m)
+	private void addTeamMitglied(int teamNR, MitarbeiterMBean m)
 	{
 		// Teamliste prüfen
 		if (!teams.containsKey(teamNR))

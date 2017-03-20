@@ -2,17 +2,23 @@ package de.hannit.fsch.klr.ejb.beans;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.inject.Inject;
 
+import de.hannit.fsch.klr.ejb.interfaces.KostenstelleDAO;
+import de.hannit.fsch.klr.ejb.interfaces.KostentraegerDAO;
+import de.hannit.fsch.klr.ejb.interfaces.LogaDatensatzDAO;
 import de.hannit.fsch.klr.ejb.interfaces.MitarbeiterDAO;
-import de.hannit.fsch.klr.persistence.entities.Arbeitszeitanteil;
+import de.hannit.fsch.klr.persistence.entities.Kostenstelle;
+import de.hannit.fsch.klr.persistence.entities.Kostentraeger;
+import de.hannit.fsch.klr.persistence.entities.LogaDatensatz;
 import de.hannit.fsch.klr.persistence.entities.Mitarbeiter;
-import de.hannit.fsch.klr.persistence.enums.Teams;
 
 /**
  * Singleton wird beim Start der Applikation erzeugt
@@ -27,43 +33,45 @@ public class ApplicationStart
 {
 @EJB	
 private MitarbeiterDAO mitarbeiterDAO;
-@Inject
-private JMSBroker broker;
-
+private List<Mitarbeiter> mitarbeiter = new ArrayList<Mitarbeiter>();
+@EJB	
+private KostenstelleDAO kstDAO;
+private List<Kostenstelle> kostenStellen;
+@EJB	
+private KostentraegerDAO ktrDAO;
+private List<Kostentraeger> kostenTraeger;
+@EJB
+private LogaDatensatzDAO logaDAO;
+private List<LogaDatensatz> logaDaten;
+private LocalDate maxDate;
+	
+	/**
+	 * Lädt alle Mitarbeiter für den Monat, für den maximale Loga Daten vorliegen
+	 */
 	@PostConstruct
 	private void init()
 	{
-		if (mitarbeiterDAO.getAllMitarbeiter().size() == 0) 
+	setMaxDate(logaDAO.findMAXDate());	
+	logaDaten = logaDAO.findByDate(getMaxDate());
+		for (LogaDatensatz logaDatensatz : logaDaten) 
 		{
-/*		Mitarbeiter m = new Mitarbeiter();
-		m.setVorname("Horst");
-		m.setNachname("Brack");
-		m.setPersonalNR(123456);
-		m.setTeam(Teams.Team1);
-		m.setUsername("HBrack");
-		
-		ArrayList<Arbeitszeitanteil> azvListe = new ArrayList<>();
-		
-		Arbeitszeitanteil azv = new Arbeitszeitanteil();
-		azv.setBerichtsmonat(LocalDate.now());
-		azv.setMitarbeiterPNR(m.getPersonalNR());
-		azv.setKostenstelle("1010");
-		azv.setProzentanteil(50);
-		azvListe.add(azv);
-		
-		azv = new Arbeitszeitanteil();
-		azv.setBerichtsmonat(LocalDate.now());
-		azv.setMitarbeiterPNR(m.getPersonalNR());
-		azv.setKostenstelle("1030");
-		azv.setProzentanteil(50);
-		azvListe.add(azv);
-		
-		m.setArbeitszeitAnteile(azvListe);
-		
-		mitarbeiterDAO.create(m);
-
-		broker.send(m);*/
-		
+		mitarbeiter.add(mitarbeiterDAO.getMitarbeiter(logaDatensatz.getMitarbeiterPNR()));	
 		}
+	Logger.getLogger(this.getClass().getSimpleName()).log(Level.INFO, "Es wurden " + mitarbeiter.size() + " Mitarbeiter vom Persistenzlayer vorgeladen.");
+	
+	kostenStellen = kstDAO.getAll();
+	Logger.getLogger(this.getClass().getSimpleName()).log(Level.INFO, "Es wurden " + kostenStellen.size() + " Kostenstellen vom Persistenzlayer vorgeladen.");
+	
+	kostenTraeger = ktrDAO.getAll();
+	Logger.getLogger(this.getClass().getSimpleName()).log(Level.INFO, "Es wurden " + kostenTraeger.size() + " Kostenträger vom Persistenzlayer vorgeladen.");
 	}
+
+	public LocalDate getMaxDate() {return maxDate;}
+	public void setMaxDate(LocalDate maxDate) {this.maxDate = maxDate;}
+	public List<Mitarbeiter> getMitarbeiter() {return mitarbeiter;}
+	public List<LogaDatensatz> getLogaDaten() {return logaDaten;}
+	public List<Kostenstelle> getKostenStellen() {return kostenStellen;}
+	public List<Kostentraeger> getKostenTraeger() {return kostenTraeger;}
+	
+	
 }

@@ -14,7 +14,6 @@ import de.hannit.fsch.klr.model.csv.CSV01Datei;
 import de.hannit.fsch.klr.model.mitarbeiter.Mitarbeiter;
 import de.hannit.fsch.klr.web.commands.CreateCSV01Command;
 import de.hannit.fsch.klr.web.commands.CreateMitarbeiterCommand;
-import de.hannit.fsch.klr.web.commands.CreateMitarbeiterMDC;
 
 /*
  * Controller für die MenuBar
